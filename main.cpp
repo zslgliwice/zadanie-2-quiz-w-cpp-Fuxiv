@@ -1,54 +1,36 @@
 #include <iostream>
-#include <windows.h>
-#include <cstdlib>
+#include <string>
 
 using namespace std;
 
-string imie;
-string odp;
+int main() {
+	int score = 0;
+	string questions[5] = { "Jaki makaron jest najpopularniejszy we Wloszech?", "Jak nazywa sie makaron, ktory wyglada jak male uszy?", "Jak nazywa sie makaron, ktory wyglada jak muszka?", "Jak nazywa sie makaron, ktory wyglada jak spirala?", "Jak nazywa sie dluuugi makaron?" };
+	string answers[5][3] = { {"Spaghetti", "Fusilli", "Penne"}, {"Orecchiette", "Farfalle", "Conchiglie"}, {"Farfalle", "Fettuccine", "Linguine"}, {"Fusilli", "Rotini", "Gemelli"}, {"Farfalle", "Pappardelle", "Spaghetti"} };
+	int correctAnswers[5] = { 2, 0, 0, 1, 2 };
 
-int main()
-{
-    //https://cpp0x.pl/kursy/Kurs-WinAPI-C++/Roznosci/Kolory-w-konsoli/374
-    HANDLE uchwyt = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(uchwyt, 12);
-    cout << "\aPodaj imie: ";
-    cin >> imie;
-    int pkt = 0;
+	int questionsSize = sizeof(questions) / sizeof(questions[0]);
+	int answersSize = sizeof answers[0] / sizeof(string);
 
-    system("cls");
-    cout<< "3";
-    Sleep(1000);
-    system("cls");
-    cout<< "3..2";
-    Sleep(1000);
-    system("cls");
-    cout<< "3..2..1..";
-    Sleep(1000);
-    system("cls");
+	printf("Witaj w quizie o makaronie!\n");
+	for (int i = 0; i < questionsSize; i++) {
+		printf("%s\n", questions[i].c_str());
+		for (int j = 0; j < answersSize; j++) {
+			printf("%d, %s\n", j + 1, answers[i][j].c_str());
+		}
+		int userAnswer;
+		printf("Wprowadz swoja odpowiedz (1-3): ");
+		cin >> userAnswer;
+		if (userAnswer == correctAnswers[i] + 1) {
+			printf("Poprawna odpowiedz!\n\n");
+			score++;
+		}
+		else {
+			printf("Bledna odpowiedz\n\n");
+		}
+	}
 
-    cout << imie << " witaj w tescie z programowania\n";
+	printf("Zdobyles %d z 5 punktow", score);
 
-    cout << "Co to jest C++?"<<endl;
-    cout << "a) Piosenkarka"<<endl;
-    cout << "b) Jezyk programowania"<<endl;
-    cout << "c) Mlynek do herbaty"<<endl;
-    cout << "Twoja odpowiedz: ";
-    cin >> odp;
-    if(odp == "b")
-    {
-        cout << "Poprawna odpowiedz!";
-        pkt++;
-    }
-    else
-    {
-        cout << "Zle! Jest to jezyk programowania!";
-
-    }
-    Sleep(3000);
-    system("cls");
-
-
-
-    return 0;
+	return 0;
 }
